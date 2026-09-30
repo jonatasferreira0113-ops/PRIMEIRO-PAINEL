@@ -1,32 +1,29 @@
 import SwiftUI
+import WebKit
 
 struct ContentView: View {
-    @State private var mensagem = "Olá! 👋"
-
     var body: some View {
-        ZStack {
-            Color.black
-                .ignoresSafeArea()
+        RemotePanel()
+            .ignoresSafeArea()
+    }
+}
 
-            VStack(spacing: 25) {
-                Text("Meu primeiro App")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
+struct RemotePanel: UIViewRepresentable {
 
-                Text(mensagem)
-                    .foregroundColor(.white)
+    let url = URL(
+        string: "https://jonatasferreira0113-ops.github.io/PRIMEIRO-PAINEL/"
+    )!
 
-                Button("Clique aqui") {
-                    mensagem = "Botão pressionado!"
-                }
-                .padding()
-                .frame(maxWidth: .infinity)
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(12)
-            }
-            .padding(30)
-        }
+    func makeUIView(context: Context) -> WKWebView {
+        let webView = WKWebView()
+        webView.scrollView.bounces = false
+        webView.load(URLRequest(url: url))
+        return webView
+    }
+
+    func updateUIView(
+        _ webView: WKWebView,
+        context: Context
+    ) {
     }
 }
