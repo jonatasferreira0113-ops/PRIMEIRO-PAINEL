@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Primeiro Painel</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #0b0b0f;
+            color: white;
+            font-family: Arial, sans-serif;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .painel {
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            background: #15151c;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #aaa;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 15px;
+            border: 0;
+            border-radius: 12px;
+            background: #1473ff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="painel">
+
+        <h1>Meu Primeiro Painel</h1>
+
+        <p id="mensagem">
+            Painel online
+        </p>
+
+        <button onclick="mostrarMensagem()">
+            Clique aqui
+        </button>
+
+    </div>
+
+    <script>
+        function mostrarMensagem() {
+            document.getElementById("mensagem").innerText =
+                "Botão pressionado!";
+        }
+    </script>
+
+</body>
+</html>
