@@ -1,0 +1,41 @@
+name: Build IPA
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Baixar projeto
+        uses: actions/checkout@v4
+
+      - name: Instalar XcodeGen
+        run: brew install xcodegen
+
+      - name: Criar projeto Xcode
+        run: xcodegen generate
+
+      - name: Compilar
+        run: |
+          xcodebuild \
+            -project PrimeiroPainel.xcodeproj \
+            -scheme PrimeiroPainel \
+            -sdk iphoneos \
+            -configuration Release \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO
+
+      - name: Criar IPA
+        run: |
+          mkdir Payload
+          cp -R build/Build/Products/Release-iphoneos/PrimeiroPainel.app Payload/
+          zip -r PrimeiroPainel.ipa Payload
+
+      - name: Disponibilizar IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: PrimeiroPainel-IPA
+          path: PrimeiroPainel.ipa
