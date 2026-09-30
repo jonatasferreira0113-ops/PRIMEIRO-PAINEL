@@ -10,11 +10,13 @@ targets:
     deploymentTarget: "17.0"
 
     sources:
-      - path: ContentView.swift
-      - path: PrimeiroPainelApp.swift
+      - ContentView.swift
+      - PrimeiroPainelApp.swift
+
+    info:
+      path: Info.plist
 
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.jonatas.primeiropainel
-        INFOPLIST_KEY_CFBundleDisplayName: Primeiro Painel
         SWIFT_VERSION: 5.0
