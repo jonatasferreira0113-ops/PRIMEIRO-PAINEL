@@ -1,0 +1,20 @@
+name: PrimeiroPainel
+
+options:
+  bundleIdPrefix: com.jonatas
+
+targets:
+  PrimeiroPainel:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+
+    sources:
+      - path: ContentView.swift
+      - path: PrimeiroPainelApp.swift
+
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.jonatas.primeiropainel
+        INFOPLIST_KEY_CFBundleDisplayName: Primeiro Painel
+        SWIFT_VERSION: 5.0
