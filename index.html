@@ -6,10 +6,8 @@
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     >
-
-    <meta name="theme-color" content="#000000">
 
     <title>Calculadora</title>
 
@@ -17,89 +15,69 @@
 
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
             -webkit-tap-highlight-color: transparent;
         }
 
         html,
         body {
-            margin: 0;
-            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            overflow: hidden;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        /* ============================
+           CALCULADORA
+        ============================ */
+
+        #calculadora {
+
+            position: fixed;
+
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
 
             width: 100%;
             height: 100%;
 
             background: #000;
-            color: white;
 
-            overflow: hidden;
-
-            font-family:
-                -apple-system,
-                BlinkMacSystemFont,
-                "SF Pro Display",
-                "Helvetica Neue",
-                Arial,
-                sans-serif;
-        }
-
-        button {
-            border: none;
-            outline: none;
-
-            font-family: inherit;
-
-            user-select: none;
-            -webkit-user-select: none;
-
-            cursor: pointer;
-        }
-
-
-        /* =====================================
-           CALCULADORA
-        ===================================== */
-
-        #calculadora {
-
-            width: 100%;
-            height: 100dvh;
-
-            min-height: 0;
+            padding-top: 50px;
+            padding-left: 12px;
+            padding-right: 12px;
+            padding-bottom: 12px;
 
             display: flex;
             flex-direction: column;
-
-            background: #000;
-
-            padding-top: env(safe-area-inset-top);
-            padding-left: 16px;
-            padding-right: 16px;
-            padding-bottom: env(safe-area-inset-bottom);
         }
 
 
-        /* =====================================
+        /* ============================
            DISPLAY
-        ===================================== */
+        ============================ */
 
         #display {
 
             width: 100%;
 
-            flex: 0 0 25%;
-
-            min-height: 0;
+            height: 35%;
 
             display: flex;
 
             align-items: flex-end;
             justify-content: flex-end;
 
-            padding: 0 10px 12px;
+            padding: 0 12px 15px;
 
             color: white;
 
-            font-size: clamp(55px, 17vw, 82px);
+            font-size: 80px;
 
             font-weight: 300;
 
@@ -108,48 +86,50 @@
             overflow: hidden;
 
             white-space: nowrap;
-
-            text-align: right;
         }
 
 
-        /* =====================================
-           ÁREA DOS BOTÕES
-        ===================================== */
+        /* ============================
+           BOTÕES
+        ============================ */
 
         .botoes {
 
             width: 100%;
 
-            flex: 1 1 auto;
-
-            min-height: 0;
+            height: 65%;
 
             display: grid;
 
             grid-template-columns:
-                repeat(4, minmax(0, 1fr));
+                repeat(4, 1fr);
 
             grid-template-rows:
-                repeat(5, minmax(0, 1fr));
+                repeat(5, 1fr);
 
             gap: 10px;
-
-            padding-bottom: 10px;
         }
 
 
-        /* =====================================
-           BOTÕES
-        ===================================== */
+        button {
+
+            border: none;
+
+            outline: none;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            cursor: pointer;
+
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
 
         .botao {
 
             width: 100%;
             height: 100%;
-
-            min-width: 0;
-            min-height: 0;
 
             border-radius: 50%;
 
@@ -157,26 +137,21 @@
 
             color: white;
 
+            font-size: 32px;
+
             display: flex;
 
             align-items: center;
+
             justify-content: center;
-
-            font-size: clamp(22px, 7vw, 32px);
-
-            font-weight: 400;
-
-            padding: 0;
         }
+
 
         .botao:active {
-            opacity: 0.55;
+
+            opacity: 0.5;
         }
 
-
-        /* =====================================
-           BOTÕES ESPECIAIS
-        ===================================== */
 
         .especial {
 
@@ -186,61 +161,54 @@
         }
 
 
-        /* =====================================
-           OPERADORES
-        ===================================== */
-
         .operador {
 
             background: #ff9f0a;
 
-            color: white;
+            color: #fff;
         }
 
-
-        /* =====================================
-           ZERO
-        ===================================== */
 
         .zero {
 
             grid-column: span 2;
 
-            border-radius: 999px;
+            border-radius: 100px;
 
             justify-content: flex-start;
 
-            padding-left: 25px;
+            padding-left: 28px;
         }
 
 
-        /* =====================================
+
+        /* ============================
            PAINEL
-        ===================================== */
+        ============================ */
 
         #painel {
 
             display: none;
 
-            width: 100%;
-            height: 100dvh;
+            position: fixed;
 
-            min-height: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            width: 100%;
+            height: 100%;
 
             background: #080808;
 
-            padding-top:
-                calc(
-                    env(safe-area-inset-top) + 20px
-                );
+            color: white;
 
-            padding-left: 20px;
-            padding-right: 20px;
-
-            padding-bottom:
-                calc(
-                    env(safe-area-inset-bottom) + 20px
-                );
+            padding:
+                60px
+                20px
+                30px
+                20px;
 
             overflow-y: auto;
         }
@@ -258,45 +226,39 @@
 
         .painel-titulo {
 
-            margin-top: 10px;
-
-            margin-bottom: 8px;
-
             font-size: 32px;
 
             font-weight: 700;
+
+            margin-bottom: 8px;
         }
 
 
         .painel-subtitulo {
 
-            margin-bottom: 25px;
-
             color: #999;
 
-            font-size: 16px;
+            margin-bottom: 25px;
         }
 
 
         .card {
-
-            width: 100%;
-
-            margin-bottom: 15px;
-
-            padding: 20px;
 
             background: #151515;
 
             border: 1px solid #292929;
 
             border-radius: 18px;
+
+            padding: 20px;
+
+            margin-bottom: 15px;
         }
 
 
         .card h2 {
 
-            margin: 0 0 8px;
+            margin-bottom: 8px;
 
             font-size: 20px;
         }
@@ -304,11 +266,7 @@
 
         .card p {
 
-            margin: 0;
-
             color: #aaa;
-
-            font-size: 15px;
 
             line-height: 1.5;
         }
@@ -334,60 +292,71 @@
         }
 
 
-        .painel-botao:active {
-
-            opacity: 0.7;
-        }
-
-
         .voltar {
-
-            margin-top: 10px;
 
             background: #222;
         }
 
 
-        /* =====================================
-           TELAS MUITO PEQUENAS
-        ===================================== */
 
-        @media (max-height: 650px) {
+        /* ============================
+           CELULARES PEQUENOS
+        ============================ */
 
-            #display {
-                flex-basis: 20%;
-            }
-
-            .botoes {
-                gap: 7px;
-                padding-bottom: 5px;
-            }
-
-        }
-
-
-        /* =====================================
-           IPHONE / CELULAR MAIS ESTREITO
-        ===================================== */
-
-        @media (max-width: 360px) {
+        @media (max-height: 700px) {
 
             #calculadora {
 
-                padding-left: 10px;
-                padding-right: 10px;
+                padding-top: 35px;
+            }
+
+            #display {
+
+                height: 28%;
+
+                font-size: 65px;
             }
 
             .botoes {
 
+                height: 72%;
+
                 gap: 7px;
+            }
+
+            .botao {
+
+                font-size: 27px;
+            }
+        }
+
+
+        /* ============================
+           IPHONE MAIS ESTREITO
+        ============================ */
+
+        @media (max-width: 380px) {
+
+            #calculadora {
+
+                padding-left: 8px;
+                padding-right: 8px;
+            }
+
+            .botoes {
+
+                gap: 8px;
+            }
+
+            .botao {
+
+                font-size: 28px;
             }
 
             .zero {
 
-                padding-left: 20px;
+                padding-left: 24px;
             }
-
         }
 
     </style>
@@ -398,11 +367,12 @@
 <body>
 
 
-    <!-- =====================================
+    <!-- ============================
          CALCULADORA
-    ===================================== -->
+    ============================ -->
 
     <div id="calculadora">
+
 
         <div id="display">
             0
@@ -412,10 +382,9 @@
         <div class="botoes">
 
 
-            <!-- LINHA 1 -->
+            <!-- 1ª LINHA -->
 
             <button
-                type="button"
                 class="botao especial"
                 onclick="limpar()"
             >
@@ -424,7 +393,6 @@
 
 
             <button
-                type="button"
                 class="botao especial"
                 onclick="porcentagem()"
             >
@@ -433,163 +401,146 @@
 
 
             <button
-                type="button"
                 class="botao especial"
-                onclick="mudarSinal()"
+                onclick="sinal()"
             >
                 ±
             </button>
 
 
             <button
-                type="button"
                 class="botao operador"
-                onclick="selecionarOperador('/')"
+                onclick="operador('/')"
             >
                 ÷
             </button>
 
 
 
-            <!-- LINHA 2 -->
+            <!-- 2ª LINHA -->
 
             <button
-                type="button"
                 class="botao"
-                onclick="digitarNumero('7')"
+                onclick="numero('7')"
             >
                 7
             </button>
 
 
             <button
-                type="button"
                 class="botao"
-                onclick="digitarNumero('8')"
+                onclick="numero('8')"
             >
                 8
             </button>
 
 
             <button
-                type="button"
                 class="botao"
-                onclick="digitarNumero('9')"
+                onclick="numero('9')"
             >
                 9
             </button>
 
 
             <button
-                type="button"
                 class="botao operador"
-                onclick="selecionarOperador('*')"
+                onclick="operador('*')"
             >
                 ×
             </button>
 
 
 
-            <!-- LINHA 3 -->
+            <!-- 3ª LINHA -->
 
             <button
-                type="button"
                 class="botao"
-                onclick="digitarNumero('4')"
+                onclick="numero('4')"
             >
                 4
             </button>
 
 
             <button
-                type="button"
                 class="botao"
-                onclick="digitarNumero('5')"
+                onclick="numero('5')"
             >
                 5
             </button>
 
 
             <button
-                type="button"
                 class="botao"
-                onclick="digitarNumero('6')"
+                onclick="numero('6')"
             >
                 6
             </button>
 
 
             <button
-                type="button"
                 class="botao operador"
-                onclick="selecionarOperador('-')"
+                onclick="operador('-')"
             >
                 −
             </button>
 
 
 
-            <!-- LINHA 4 -->
+            <!-- 4ª LINHA -->
 
             <button
-                type="button"
                 class="botao"
-                onclick="digitarNumero('1')"
+                onclick="numero('1')"
             >
                 1
             </button>
 
 
             <button
-                type="button"
                 class="botao"
-                onclick="digitarNumero('2')"
+                onclick="numero('2')"
             >
                 2
             </button>
 
 
             <button
-                type="button"
                 class="botao"
-                onclick="digitarNumero('3')"
+                onclick="numero('3')"
             >
                 3
             </button>
 
 
             <button
-                type="button"
                 class="botao operador"
-                onclick="selecionarOperador('+')"
+                onclick="operador('+')"
             >
                 +
             </button>
 
 
 
-            <!-- LINHA 5 -->
+            <!-- 5ª LINHA -->
 
             <button
-                type="button"
                 class="botao zero"
-                onclick="digitarNumero('0')"
+                onclick="numero('0')"
             >
                 0
             </button>
 
 
             <button
-                type="button"
                 class="botao"
-                onclick="digitarNumero('.')"
+                onclick="numero('.')"
             >
                 .
             </button>
 
 
             <button
-                type="button"
                 class="botao operador"
                 onclick="calcular()"
             >
@@ -603,11 +554,12 @@
 
 
 
-    <!-- =====================================
+    <!-- ============================
          PAINEL
-    ===================================== -->
+    ============================ -->
 
     <div id="painel">
+
 
         <div class="painel-container">
 
@@ -647,7 +599,6 @@
 
 
                 <button
-                    type="button"
                     class="painel-botao"
                     onclick="pressionar()"
                 >
@@ -656,7 +607,6 @@
 
 
                 <button
-                    type="button"
                     class="painel-botao voltar"
                     onclick="voltar()"
                 >
@@ -672,115 +622,96 @@
 
 
 
-    <!-- =====================================
-         JAVASCRIPT
-    ===================================== -->
-
     <script>
 
-        let valorAtual = "0";
 
-        let primeiroValor = null;
+        let atual = "0";
 
-        let operadorAtual = null;
+        let primeiro = null;
 
-        let esperandoSegundoValor = false;
+        let op = null;
 
-        let primeiroZero = false;
+        let novoNumero = false;
+
+        let zeroAnterior = false;
 
 
 
-        function atualizarDisplay() {
+        function display() {
 
             document.getElementById(
                 "display"
-            ).textContent = valorAtual;
+            ).textContent = atual;
 
         }
 
 
 
-        function digitarNumero(numero) {
+        function numero(n) {
 
 
             /*
+             * DOIS ZEROS ABREM O PAINEL
+             */
 
-                DOIS TOQUES NO ZERO
-                ABREM O PAINEL
+            if (n === "0") {
 
-            */
-
-            if (numero === "0") {
-
-                if (primeiroZero) {
+                if (zeroAnterior) {
 
                     abrirPainel();
 
-                    primeiroZero = false;
+                    zeroAnterior = false;
 
                     return;
                 }
 
-                primeiroZero = true;
+                zeroAnterior = true;
 
             } else {
 
-                primeiroZero = false;
+                zeroAnterior = false;
 
             }
 
 
 
-            if (esperandoSegundoValor) {
+            if (novoNumero) {
 
-                if (numero === ".") {
+                atual =
+                    n === "."
+                    ? "0."
+                    : n;
 
-                    valorAtual = "0.";
-
-                } else {
-
-                    valorAtual = numero;
-
-                }
-
-                esperandoSegundoValor = false;
+                novoNumero = false;
 
             }
 
+            else if (atual === "0") {
 
-            else if (valorAtual === "0") {
-
-                if (numero === ".") {
-
-                    valorAtual = "0.";
-
-                } else {
-
-                    valorAtual = numero;
-
-                }
+                atual =
+                    n === "."
+                    ? "0."
+                    : n;
 
             }
-
 
             else if (
-                numero === "." &&
-                valorAtual.includes(".")
+                n === "." &&
+                atual.includes(".")
             ) {
 
                 return;
 
             }
 
-
             else {
 
-                valorAtual += numero;
+                atual += n;
 
             }
 
 
-            atualizarDisplay();
+            display();
 
         }
 
@@ -788,17 +719,17 @@
 
         function limpar() {
 
-            valorAtual = "0";
+            atual = "0";
 
-            primeiroValor = null;
+            primeiro = null;
 
-            operadorAtual = null;
+            op = null;
 
-            esperandoSegundoValor = false;
+            novoNumero = false;
 
-            primeiroZero = false;
+            zeroAnterior = false;
 
-            atualizarDisplay();
+            display();
 
         }
 
@@ -806,68 +737,44 @@
 
         function porcentagem() {
 
-            const numero =
-                parseFloat(valorAtual);
+            atual =
+                String(
+                    parseFloat(atual) / 100
+                );
 
-            if (isNaN(numero)) {
-
-                valorAtual = "0";
-
-            } else {
-
-                valorAtual =
-                    String(numero / 100);
-
-            }
-
-            atualizarDisplay();
+            display();
 
         }
 
 
 
-        function mudarSinal() {
+        function sinal() {
 
-            const numero =
-                parseFloat(valorAtual);
+            if (atual !== "0") {
 
-            if (
-                isNaN(numero) ||
-                numero === 0
-            ) {
+                atual =
+                    String(
+                        parseFloat(atual) * -1
+                    );
 
-                return;
+                display();
 
             }
-
-            valorAtual =
-                String(numero * -1);
-
-            atualizarDisplay();
 
         }
 
 
 
-        function selecionarOperador(operador) {
+        function operador(o) {
 
-            const numero =
-                parseFloat(valorAtual);
+            primeiro =
+                parseFloat(atual);
 
-            if (isNaN(numero)) {
+            op = o;
 
-                return;
+            novoNumero = true;
 
-            }
-
-
-            primeiroValor = numero;
-
-            operadorAtual = operador;
-
-            esperandoSegundoValor = true;
-
-            primeiroZero = false;
+            zeroAnterior = false;
 
         }
 
@@ -876,8 +783,8 @@
         function calcular() {
 
             if (
-                primeiroValor === null ||
-                operadorAtual === null
+                primeiro === null ||
+                op === null
             ) {
 
                 return;
@@ -885,107 +792,77 @@
             }
 
 
-            const segundoValor =
-                parseFloat(valorAtual);
-
-
-            if (isNaN(segundoValor)) {
-
-                return;
-
-            }
-
+            let segundo =
+                parseFloat(atual);
 
             let resultado;
 
 
-            switch (operadorAtual) {
+            if (op === "+") {
 
-
-                case "+":
-
-                    resultado =
-                        primeiroValor +
-                        segundoValor;
-
-                    break;
-
-
-                case "-":
-
-                    resultado =
-                        primeiroValor -
-                        segundoValor;
-
-                    break;
-
-
-                case "*":
-
-                    resultado =
-                        primeiroValor *
-                        segundoValor;
-
-                    break;
-
-
-                case "/":
-
-                    if (segundoValor === 0) {
-
-                        valorAtual = "Erro";
-
-                        primeiroValor = null;
-
-                        operadorAtual = null;
-
-                        esperandoSegundoValor = false;
-
-                        atualizarDisplay();
-
-                        return;
-
-                    }
-
-                    resultado =
-                        primeiroValor /
-                        segundoValor;
-
-                    break;
-
-
-                default:
-
-                    return;
+                resultado =
+                    primeiro + segundo;
 
             }
 
 
-            valorAtual =
+            else if (op === "-") {
+
+                resultado =
+                    primeiro - segundo;
+
+            }
+
+
+            else if (op === "*") {
+
+                resultado =
+                    primeiro * segundo;
+
+            }
+
+
+            else if (op === "/") {
+
+                if (segundo === 0) {
+
+                    atual = "Erro";
+
+                    display();
+
+                    primeiro = null;
+
+                    op = null;
+
+                    return;
+
+                }
+
+                resultado =
+                    primeiro / segundo;
+
+            }
+
+
+            atual =
                 String(
                     Number(
-                        resultado.toFixed(10)
+                        resultado.toFixed(8)
                     )
                 );
 
 
-            primeiroValor = null;
+            primeiro = null;
 
-            operadorAtual = null;
+            op = null;
 
-            esperandoSegundoValor = true;
+            novoNumero = true;
 
-            primeiroZero = false;
-
-            atualizarDisplay();
+            display();
 
         }
 
 
-
-        /* =====================================
-           ABRIR PAINEL
-        ===================================== */
 
         function abrirPainel() {
 
@@ -998,17 +875,9 @@
                 "painel"
             ).style.display = "block";
 
-
-            document.body.style.overflow =
-                "auto";
-
         }
 
 
-
-        /* =====================================
-           VOLTAR
-        ===================================== */
 
         function voltar() {
 
@@ -1022,19 +891,11 @@
             ).style.display = "flex";
 
 
-            document.body.style.overflow =
-                "hidden";
-
-
             limpar();
 
         }
 
 
-
-        /* =====================================
-           BOTÃO DO PAINEL
-        ===================================== */
 
         function pressionar() {
 
@@ -1044,6 +905,7 @@
                 "Botão pressionado!";
 
         }
+
 
     </script>
 
