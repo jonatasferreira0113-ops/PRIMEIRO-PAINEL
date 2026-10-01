@@ -1,450 +1,529 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width,
-               initial-scale=1,
-               maximum-scale=1,
-               user-scalable=no,
-               viewport-fit=cover">
+    <meta charset="UTF-8">
 
-<title>Calculadora</title>
+    <meta name="viewport"
+        content="width=device-width,
+        initial-scale=1,
+        maximum-scale=1,
+        user-scalable=no,
+        viewport-fit=cover">
 
-<style>
-* {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-}
+    <title>Calculadora</title>
 
-html,
-body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: #000;
-    font-family: Arial, sans-serif;
-}
+    <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-/* =========================
-   CALCULADORA
-========================= */
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+            font-family: Arial, sans-serif;
+        }
 
-#calculadora {
-    position: fixed;
-    inset: 0;
+        /* =========================
+           CALCULADORA
+        ========================= */
 
-    width: 100%;
-    height: 100%;
+        #calculadora {
+            position: fixed;
+            inset: 0;
 
-    height: 100dvh;
-    min-height: 100svh;
+            width: 100%;
+            height: 100%;
+            height: 100dvh;
 
-    background: #000;
+            background: #000;
 
-    display: flex;
-    flex-direction: column;
+            display: flex;
+            flex-direction: column;
 
-    padding-top: env(safe-area-inset-top);
-    padding-left: 12px;
-    padding-right: 12px;
-    padding-bottom: env(safe-area-inset-bottom);
+            padding-top: env(safe-area-inset-top);
+            padding-left: 12px;
+            padding-right: 12px;
+            padding-bottom: env(safe-area-inset-bottom);
 
-    overflow: hidden;
-}
+            overflow: hidden;
+        }
 
-/* DISPLAY */
+        #display {
+            flex: 0 0 30%;
 
-#display {
-    flex: 0 0 30%;
+            width: 100%;
 
-    width: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
 
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
+            padding: 0 10px 15px;
 
-    padding: 0 10px 15px;
+            color: white;
 
-    color: white;
-    font-size: clamp(50px, 14vw, 100px);
-    font-weight: 300;
+            font-size: clamp(50px, 14vw, 100px);
+            font-weight: 300;
 
-    overflow: hidden;
-    white-space: nowrap;
-}
+            overflow: hidden;
+            white-space: nowrap;
+        }
 
-/* BOTÕES */
+        .botoes {
+            flex: 1;
 
-.botoes {
-    flex: 1;
+            width: 100%;
 
-    width: 100%;
+            display: grid;
 
-    display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(5, minmax(0, 1fr));
 
-    grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
 
-    grid-template-rows: repeat(5, minmax(0, 1fr));
+            padding-bottom: 8px;
+        }
 
-    gap: 10px;
+        button {
+            border: none;
+            outline: none;
 
-    padding-bottom: 8px;
-}
+            width: 100%;
+            height: 100%;
 
-/* BOTÃO */
+            border-radius: 50%;
 
-button {
-    border: none;
-    outline: none;
+            font-size: clamp(22px, 7vw, 32px);
 
-    width: 100%;
-    height: 100%;
+            color: white;
+            background: #333;
 
-    border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-    font-size: clamp(22px, 7vw, 32px);
+            touch-action: manipulation;
+        }
 
-    color: white;
+        button:active {
+            filter: brightness(1.5);
+        }
 
-    background: #333;
+        .cinza {
+            background: #a5a5a5;
+            color: #000;
+        }
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+        .operador {
+            background: #ff9500;
+            color: white;
+        }
 
-    touch-action: manipulation;
-}
+        .zero {
+            grid-column: span 2;
+            border-radius: 999px;
 
-button:active {
-    filter: brightness(1.5);
-}
+            justify-content: flex-start;
 
-/* BOTÕES CINZA */
+            padding-left: 28px;
+        }
 
-.cinza {
-    background: #a5a5a5;
-    color: #000;
-}
+        /* =========================
+           PAINEL
+        ========================= */
 
-/* OPERADORES */
+        #painel {
+            display: none;
 
-.operador {
-    background: #ff9500;
-    color: white;
-}
+            position: fixed;
+            inset: 0;
 
-/* ZERO */
+            width: 100%;
+            height: 100%;
+            height: 100dvh;
 
-.zero {
-    grid-column: span 2;
-    border-radius: 999px;
+            background: #111;
 
-    justify-content: flex-start;
+            color: white;
 
-    padding-left: 28px;
-}
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
 
-/* =========================
-   PAINEL
-========================= */
+            overflow: auto;
+        }
 
-#painel {
-    display: none;
+        .painel-conteudo {
+            width: 100%;
+            min-height: 100%;
 
-    position: fixed;
-    inset: 0;
+            padding: 25px;
+        }
 
-    width: 100%;
-    height: 100%;
-    height: 100dvh;
+        #painel h1 {
+            margin-top: 10px;
+        }
 
-    background: #111;
+        #painel button {
+            width: 100%;
+            height: 60px;
 
-    color: white;
+            border-radius: 15px;
 
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
+            margin-top: 20px;
+        }
 
-    overflow: auto;
-}
+        /* =========================
+           TELAS MENORES
+        ========================= */
 
-.painel-conteudo {
-    width: 100%;
-    min-height: 100%;
+        @media (max-height: 700px) {
 
-    padding: 25px;
-}
+            #display {
+                flex-basis: 27%;
+                padding-bottom: 8px;
+            }
 
-#painel h1 {
-    margin-top: 10px;
-}
+            .botoes {
+                gap: 7px;
+            }
+        }
 
-#painel button {
-    width: 100%;
-    height: 60px;
-    border-radius: 15px;
-    margin-top: 20px;
-}
+        /* =========================
+           TELAS GRANDES
+        ========================= */
 
-/* =========================
-   IPHONES MAIS BAIXOS
-========================= */
+        @media (min-height: 800px) {
 
-@media (max-height: 700px) {
+            #display {
+                flex-basis: 32%;
+            }
 
-    #display {
-        flex-basis: 27%;
-        padding-bottom: 8px;
-    }
-
-    .botoes {
-        gap: 7px;
-    }
-}
-
-/* =========================
-   IPHONES ALTOS
-========================= */
-
-@media (min-height: 800px) {
-
-    #display {
-        flex-basis: 32%;
-    }
-
-    .botoes {
-        gap: 10px;
-    }
-}
-</style>
+            .botoes {
+                gap: 10px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- =========================
-     CALCULADORA
-========================= -->
+    <!-- =========================
+         CALCULADORA
+    ========================= -->
 
-<div id="calculadora">
+    <div id="calculadora">
 
-    <div id="display">0</div>
+        <div id="display">0</div>
 
-    <div class="botoes">
+        <div class="botoes">
 
-        <button class="cinza" onclick="limpar()">AC</button>
-        <button class="cinza" onclick="porcentagem()">%</button>
-        <button class="cinza" onclick="sinal()">±</button>
-        <button class="operador" onclick="operador('/')">÷</button>
+            <button class="cinza" onclick="limpar()">
+                AC
+            </button>
 
-        <button onclick="numero('7')">7</button>
-        <button onclick="numero('8')">8</button>
-        <button onclick="numero('9')">9</button>
-        <button class="operador" onclick="operador('*')">×</button>
+            <button class="cinza" onclick="porcentagem()">
+                %
+            </button>
 
-        <button onclick="numero('4')">4</button>
-        <button onclick="numero('5')">5</button>
-        <button onclick="numero('6')">6</button>
-        <button class="operador" onclick="operador('-')">−</button>
+            <button class="cinza" onclick="sinal()">
+                ±
+            </button>
 
-        <button onclick="numero('1')">1</button>
-        <button onclick="numero('2')">2</button>
-        <button onclick="numero('3')">3</button>
-        <button class="operador" onclick="operador('+')">+</button>
+            <button class="operador" onclick="operador('/')">
+                ÷
+            </button>
 
-        <button class="zero" onclick="numero('0')">0</button>
-        <button onclick="numero('.')">.</button>
-        <button class="operador" onclick="calcular()">=</button>
+
+            <button onclick="numero('7')">
+                7
+            </button>
+
+            <button onclick="numero('8')">
+                8
+            </button>
+
+            <button onclick="numero('9')">
+                9
+            </button>
+
+            <button class="operador" onclick="operador('*')">
+                ×
+            </button>
+
+
+            <button onclick="numero('4')">
+                4
+            </button>
+
+            <button onclick="numero('5')">
+                5
+            </button>
+
+            <button onclick="numero('6')">
+                6
+            </button>
+
+            <button class="operador" onclick="operador('-')">
+                −
+            </button>
+
+
+            <button onclick="numero('1')">
+                1
+            </button>
+
+            <button onclick="numero('2')">
+                2
+            </button>
+
+            <button onclick="numero('3')">
+                3
+            </button>
+
+            <button class="operador" onclick="operador('+')">
+                +
+            </button>
+
+
+            <!-- BOTÃO 00 -->
+            <button class="zero" onclick="abrirPainel()">
+                00
+            </button>
+
+            <button onclick="numero('.')">
+                .
+            </button>
+
+            <button class="operador" onclick="calcular()">
+                =
+            </button>
+
+        </div>
 
     </div>
 
-</div>
 
+    <!-- =========================
+         PAINEL
+    ========================= -->
 
-<!-- =========================
-     PAINEL
-========================= -->
+    <div id="painel">
 
-<div id="painel">
+        <div class="painel-conteudo">
 
-    <div class="painel-conteudo">
+            <h1>Meu Primeiro Painel</h1>
 
-        <h1>JHON</h1>
+            <p>Painel online</p>
 
-        <p>Painel online</p>
+            <button onclick="voltar()">
+                Voltar
+            </button>
 
-        <button onclick="voltar()">
-            Voltar
-        </button>
+        </div>
 
     </div>
 
-</div>
 
+    <script>
 
-<script>
+        let valorAtual = "0";
+        let valorAnterior = null;
+        let operadorAtual = null;
 
-let valorAtual = "0";
-let valorAnterior = null;
-let operadorAtual = null;
 
-let cliquesZero = 0;
+        /* =========================
+           DISPLAY
+        ========================= */
 
+        function atualizarDisplay() {
 
-/* DISPLAY */
+            document.getElementById("display").textContent =
+                valorAtual;
 
-function atualizarDisplay() {
-    document.getElementById("display").textContent = valorAtual;
-}
+        }
 
 
-/* NÚMEROS */
+        /* =========================
+           NÚMEROS
+        ========================= */
 
-function numero(n) {
+        function numero(n) {
 
-    if (n === "." && valorAtual.includes(".")) {
-        return;
-    }
+            if (
+                n === "." &&
+                valorAtual.includes(".")
+            ) {
+                return;
+            }
 
-    if (valorAtual === "0" && n !== ".") {
-        valorAtual = n;
-    } else {
-        valorAtual += n;
-    }
+            if (
+                valorAtual === "0" &&
+                n !== "."
+            ) {
 
-    atualizarDisplay();
-}
+                valorAtual = n;
 
+            } else {
 
-/* LIMPAR */
+                valorAtual += n;
 
-function limpar() {
+            }
 
-    valorAtual = "0";
-    valorAnterior = null;
-    operadorAtual = null;
+            atualizarDisplay();
+        }
 
-    cliquesZero = 0;
 
-    atualizarDisplay();
-}
+        /* =========================
+           LIMPAR
+        ========================= */
 
+        function limpar() {
 
-/* PORCENTAGEM */
+            valorAtual = "0";
+            valorAnterior = null;
+            operadorAtual = null;
 
-function porcentagem() {
+            atualizarDisplay();
+        }
 
-    valorAtual = String(parseFloat(valorAtual) / 100);
 
-    atualizarDisplay();
-}
+        /* =========================
+           PORCENTAGEM
+        ========================= */
 
+        function porcentagem() {
 
-/* SINAL */
+            valorAtual =
+                String(parseFloat(valorAtual) / 100);
 
-function sinal() {
+            atualizarDisplay();
+        }
 
-    if (valorAtual !== "0") {
-        valorAtual = String(parseFloat(valorAtual) * -1);
-    }
 
-    atualizarDisplay();
-}
+        /* =========================
+           SINAL
+        ========================= */
 
+        function sinal() {
 
-/* OPERADOR */
+            if (valorAtual !== "0") {
 
-function operador(op) {
+                valorAtual =
+                    String(parseFloat(valorAtual) * -1);
 
-    valorAnterior = parseFloat(valorAtual);
+            }
 
-    operadorAtual = op;
+            atualizarDisplay();
+        }
 
-    valorAtual = "0";
 
-    atualizarDisplay();
-}
+        /* =========================
+           OPERADOR
+        ========================= */
 
+        function operador(op) {
 
-/* CALCULAR */
+            valorAnterior =
+                parseFloat(valorAtual);
 
-function calcular() {
+            operadorAtual = op;
 
-    if (
-        valorAnterior === null ||
-        operadorAtual === null
-    ) {
-        return;
-    }
+            valorAtual = "0";
 
-    let atual = parseFloat(valorAtual);
-    let resultado;
+            atualizarDisplay();
+        }
 
-    switch (operadorAtual) {
 
-        case "+":
-            resultado = valorAnterior + atual;
-            break;
+        /* =========================
+           CALCULAR
+        ========================= */
 
-        case "-":
-            resultado = valorAnterior - atual;
-            break;
+        function calcular() {
 
-        case "*":
-            resultado = valorAnterior * atual;
-            break;
+            if (
+                valorAnterior === null ||
+                operadorAtual === null
+            ) {
+                return;
+            }
 
-        case "/":
-            resultado = atual === 0
-                ? 0
-                : valorAnterior / atual;
-            break;
-    }
+            let atual =
+                parseFloat(valorAtual);
 
-    valorAtual = String(resultado);
+            let resultado;
 
-    valorAnterior = null;
-    operadorAtual = null;
+            switch (operadorAtual) {
 
-    atualizarDisplay();
-}
+                case "+":
+                    resultado =
+                        valorAnterior + atual;
+                    break;
 
+                case "-":
+                    resultado =
+                        valorAnterior - atual;
+                    break;
 
-/* ABRIR PAINEL */
+                case "*":
+                    resultado =
+                        valorAnterior * atual;
+                    break;
 
-function abrirPainel() {
+                case "/":
+                    resultado =
+                        atual === 0
+                            ? 0
+                            : valorAnterior / atual;
+                    break;
+            }
 
-    document.getElementById("calculadora").style.display = "none";
-    document.getElementById("painel").style.display = "block";
-}
+            valorAtual =
+                String(resultado);
 
+            valorAnterior = null;
+            operadorAtual = null;
 
-/* VOLTAR */
+            atualizarDisplay();
+        }
 
-function voltar() {
 
-    document.getElementById("painel").style.display = "none";
-    document.getElementById("calculadora").style.display = "flex";
+        /* =========================
+           ABRIR PAINEL
+        ========================= */
 
-    limpar();
-}
+        function abrirPainel() {
 
+            document.getElementById("calculadora")
+                .style.display = "none";
 
-/* CLIQUE NO ZERO */
+            document.getElementById("painel")
+                .style.display = "block";
+        }
 
-function pressionarZero() {
 
-    cliquesZero++;
+        /* =========================
+           VOLTAR
+        ========================= */
 
-    if (cliquesZero >= 2) {
-        abrirPainel();
-        cliquesZero = 0;
-    }
-}
+        function voltar() {
 
-</script>
+            document.getElementById("painel")
+                .style.display = "none";
+
+            document.getElementById("calculadora")
+                .style.display = "flex";
+
+            limpar();
+        }
+
+    </script>
 
 </body>
+
 </html>
