@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+
 <plist version="1.0">
 <dict>
+
+    <!-- Nome do aplicativo -->
     <key>CFBundleDisplayName</key>
     <string>Primeiro Painel</string>
 
@@ -15,19 +18,36 @@
     <key>CFBundlePackageType</key>
     <string>APPL</string>
 
+    <!-- Versão -->
     <key>CFBundleShortVersionString</key>
     <string>1.0</string>
 
     <key>CFBundleVersion</key>
     <string>1</string>
 
+    <!-- Tela inicial -->
     <key>UILaunchScreen</key>
     <dict/>
 
+    <!-- Ocultar barra de status -->
+    <key>UIStatusBarHidden</key>
+    <true/>
+
+    <key>UIViewControllerBasedStatusBarAppearance</key>
+    <false/>
+
+    <!-- Orientação do aplicativo -->
+    <key>UISupportedInterfaceOrientations</key>
+    <array>
+        <string>UIInterfaceOrientationPortrait</string>
+    </array>
+
+    <!-- Configuração das cenas -->
     <key>UIApplicationSceneManifest</key>
     <dict>
         <key>UIApplicationSupportsMultipleScenes</key>
         <false/>
     </dict>
+
 </dict>
 </plist>
