@@ -49,5 +49,18 @@
         <false/>
     </dict>
 
+    <!-- ============================================
+         PERMISSÃO PARA ABRIR OUTROS APLICATIVOS
+         (Necessário para o botão do Free Fire funcionar)
+    ============================================= -->
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>freefire</string>
+        <string>com.dts.freefireth</string>
+        <string>com.dts.freefiremax</string>
+        <string>pubgmobile</string>
+        <string>codm</string>
+    </array>
+
 </dict>
 </plist>
