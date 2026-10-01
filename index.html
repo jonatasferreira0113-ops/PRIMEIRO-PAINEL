@@ -1,904 +1,450 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1,
+               maximum-scale=1,
+               user-scalable=no,
+               viewport-fit=cover">
 
-    <meta charset="UTF-8">
+<title>Calculadora</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no"
-    >
+<style>
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
 
-    <meta name="theme-color" content="#000000">
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    font-family: Arial, sans-serif;
+}
 
-    <title>Calculadora v999</title>
+/* =========================
+   CALCULADORA
+========================= */
 
-    <style>
+#calculadora {
+    position: fixed;
+    inset: 0;
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
+    width: 100%;
+    height: 100%;
 
-        html,
-        body {
-            width: 100%;
-            height: 100%;
-            background: #000;
-            overflow: hidden;
-            font-family:
-                -apple-system,
-                BlinkMacSystemFont,
-                "SF Pro Display",
-                "Helvetica Neue",
-                Arial,
-                sans-serif;
-        }
+    height: 100dvh;
+    min-height: 100svh;
 
-        button {
-            border: none;
-            outline: none;
-            font-family: inherit;
-            cursor: pointer;
-            user-select: none;
-            -webkit-user-select: none;
-        }
+    background: #000;
 
+    display: flex;
+    flex-direction: column;
 
-        /* =========================
-           CALCULADORA
-        ========================= */
+    padding-top: env(safe-area-inset-top);
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-bottom: env(safe-area-inset-bottom);
 
-        #calculadora {
+    overflow: hidden;
+}
 
-            position: fixed;
+/* DISPLAY */
 
-            inset: 0;
+#display {
+    flex: 0 0 30%;
 
-            width: 100%;
-            height: 100%;
+    width: 100%;
 
-            background: #000;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
 
-            display: flex;
-            flex-direction: column;
+    padding: 0 10px 15px;
 
-            padding-top: 50px;
-            padding-left: 12px;
-            padding-right: 12px;
-            padding-bottom: 12px;
+    color: white;
+    font-size: clamp(50px, 14vw, 100px);
+    font-weight: 300;
 
-        }
+    overflow: hidden;
+    white-space: nowrap;
+}
 
+/* BOTÕES */
 
-        /* =========================
-           DISPLAY
-        ========================= */
+.botoes {
+    flex: 1;
 
-        #display {
+    width: 100%;
 
-            width: 100%;
+    display: grid;
 
-            height: 35%;
+    grid-template-columns: repeat(4, 1fr);
 
-            display: flex;
+    grid-template-rows: repeat(5, minmax(0, 1fr));
 
-            align-items: flex-end;
-            justify-content: flex-end;
+    gap: 10px;
 
-            padding: 0 12px 15px;
+    padding-bottom: 8px;
+}
 
-            color: #fff;
+/* BOTÃO */
 
-            font-size: 80px;
+button {
+    border: none;
+    outline: none;
 
-            font-weight: 300;
+    width: 100%;
+    height: 100%;
 
-            line-height: 1;
+    border-radius: 50%;
 
-            overflow: hidden;
+    font-size: clamp(22px, 7vw, 32px);
 
-            white-space: nowrap;
+    color: white;
 
-        }
+    background: #333;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-        /* =========================
-           BOTÕES
-        ========================= */
+    touch-action: manipulation;
+}
 
-        .botoes {
+button:active {
+    filter: brightness(1.5);
+}
 
-            width: 100%;
+/* BOTÕES CINZA */
 
-            height: 65%;
+.cinza {
+    background: #a5a5a5;
+    color: #000;
+}
 
-            display: grid;
+/* OPERADORES */
 
-            grid-template-columns:
-                repeat(4, 1fr);
+.operador {
+    background: #ff9500;
+    color: white;
+}
 
-            grid-template-rows:
-                repeat(5, 1fr);
+/* ZERO */
 
-            gap: 10px;
+.zero {
+    grid-column: span 2;
+    border-radius: 999px;
 
-        }
+    justify-content: flex-start;
 
+    padding-left: 28px;
+}
 
-        .botao {
+/* =========================
+   PAINEL
+========================= */
 
-            width: 100%;
-            height: 100%;
+#painel {
+    display: none;
 
-            border-radius: 50%;
+    position: fixed;
+    inset: 0;
 
-            background: #333;
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
 
-            color: #fff;
+    background: #111;
 
-            font-size: 32px;
+    color: white;
 
-            display: flex;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
 
-            align-items: center;
-            justify-content: center;
+    overflow: auto;
+}
 
-        }
+.painel-conteudo {
+    width: 100%;
+    min-height: 100%;
 
+    padding: 25px;
+}
 
-        .botao:active {
+#painel h1 {
+    margin-top: 10px;
+}
 
-            opacity: 0.5;
+#painel button {
+    width: 100%;
+    height: 60px;
+    border-radius: 15px;
+    margin-top: 20px;
+}
 
-        }
+/* =========================
+   IPHONES MAIS BAIXOS
+========================= */
 
+@media (max-height: 700px) {
 
-        .especial {
+    #display {
+        flex-basis: 27%;
+        padding-bottom: 8px;
+    }
 
-            background: #a5a5a5;
+    .botoes {
+        gap: 7px;
+    }
+}
 
-            color: #000;
+/* =========================
+   IPHONES ALTOS
+========================= */
 
-        }
+@media (min-height: 800px) {
 
+    #display {
+        flex-basis: 32%;
+    }
 
-        .operador {
-
-            background: #ff9f0a;
-
-            color: #fff;
-
-        }
-
-
-        .zero {
-
-            grid-column: span 2;
-
-            border-radius: 100px;
-
-            justify-content: flex-start;
-
-            padding-left: 28px;
-
-        }
-
-
-        /* =========================
-           PAINEL
-        ========================= */
-
-        #painel {
-
-            display: none;
-
-            position: fixed;
-
-            inset: 0;
-
-            width: 100%;
-            height: 100%;
-
-            background: #080808;
-
-            color: white;
-
-            padding: 60px 20px 30px;
-
-            overflow-y: auto;
-
-        }
-
-
-        .painel-container {
-
-            width: 100%;
-
-            max-width: 600px;
-
-            margin: auto;
-
-        }
-
-
-        .painel-titulo {
-
-            font-size: 32px;
-
-            font-weight: 700;
-
-            margin-bottom: 8px;
-
-        }
-
-
-        .painel-subtitulo {
-
-            color: #999;
-
-            margin-bottom: 25px;
-
-        }
-
-
-        .card {
-
-            background: #151515;
-
-            border: 1px solid #292929;
-
-            border-radius: 18px;
-
-            padding: 20px;
-
-            margin-bottom: 15px;
-
-        }
-
-
-        .card h2 {
-
-            margin-bottom: 8px;
-
-            font-size: 20px;
-
-        }
-
-
-        .card p {
-
-            color: #aaa;
-
-            line-height: 1.5;
-
-        }
-
-
-        .painel-botao {
-
-            width: 100%;
-
-            height: 55px;
-
-            margin-top: 15px;
-
-            border-radius: 14px;
-
-            background: #007aff;
-
-            color: white;
-
-            font-size: 18px;
-
-            font-weight: 600;
-
-        }
-
-
-        .painel-botao:active {
-
-            opacity: 0.7;
-
-        }
-
-
-        .voltar {
-
-            background: #222;
-
-        }
-
-
-        /* =========================
-           TELAS PEQUENAS
-        ========================= */
-
-        @media (max-height: 700px) {
-
-            #calculadora {
-
-                padding-top: 35px;
-
-            }
-
-            #display {
-
-                height: 28%;
-
-                font-size: 65px;
-
-            }
-
-            .botoes {
-
-                height: 72%;
-
-                gap: 7px;
-
-            }
-
-            .botao {
-
-                font-size: 27px;
-
-            }
-
-        }
-
-
-        @media (max-width: 380px) {
-
-            #calculadora {
-
-                padding-left: 8px;
-                padding-right: 8px;
-
-            }
-
-            .botoes {
-
-                gap: 8px;
-
-            }
-
-            .botao {
-
-                font-size: 28px;
-
-            }
-
-            .zero {
-
-                padding-left: 24px;
-
-            }
-
-        }
-
-    </style>
-
+    .botoes {
+        gap: 10px;
+    }
+}
+</style>
 </head>
-
 
 <body>
 
+<!-- =========================
+     CALCULADORA
+========================= -->
 
-    <!-- =========================
-         CALCULADORA
-    ========================= -->
+<div id="calculadora">
 
-    <div id="calculadora">
+    <div id="display">0</div>
 
-        <div id="display">
-            0
-        </div>
+    <div class="botoes">
 
+        <button class="cinza" onclick="limpar()">AC</button>
+        <button class="cinza" onclick="porcentagem()">%</button>
+        <button class="cinza" onclick="sinal()">±</button>
+        <button class="operador" onclick="operador('/')">÷</button>
 
-        <div class="botoes">
+        <button onclick="numero('7')">7</button>
+        <button onclick="numero('8')">8</button>
+        <button onclick="numero('9')">9</button>
+        <button class="operador" onclick="operador('*')">×</button>
 
+        <button onclick="numero('4')">4</button>
+        <button onclick="numero('5')">5</button>
+        <button onclick="numero('6')">6</button>
+        <button class="operador" onclick="operador('-')">−</button>
 
-            <button
-                class="botao especial"
-                onclick="limpar()"
-            >
-                AC
-            </button>
+        <button onclick="numero('1')">1</button>
+        <button onclick="numero('2')">2</button>
+        <button onclick="numero('3')">3</button>
+        <button class="operador" onclick="operador('+')">+</button>
 
-
-            <button
-                class="botao especial"
-                onclick="porcentagem()"
-            >
-                %
-            </button>
-
-
-            <button
-                class="botao especial"
-                onclick="sinal()"
-            >
-                ±
-            </button>
-
-
-            <button
-                class="botao operador"
-                onclick="operador('/')"
-            >
-                ÷
-            </button>
-
-
-
-            <button
-                class="botao"
-                onclick="numero('7')"
-            >
-                7
-            </button>
-
-
-            <button
-                class="botao"
-                onclick="numero('8')"
-            >
-                8
-            </button>
-
-
-            <button
-                class="botao"
-                onclick="numero('9')"
-            >
-                9
-            </button>
-
-
-            <button
-                class="botao operador"
-                onclick="operador('*')"
-            >
-                ×
-            </button>
-
-
-
-            <button
-                class="botao"
-                onclick="numero('4')"
-            >
-                4
-            </button>
-
-
-            <button
-                class="botao"
-                onclick="numero('5')"
-            >
-                5
-            </button>
-
-
-            <button
-                class="botao"
-                onclick="numero('6')"
-            >
-                6
-            </button>
-
-
-            <button
-                class="botao operador"
-                onclick="operador('-')"
-            >
-                −
-            </button>
-
-
-
-            <button
-                class="botao"
-                onclick="numero('1')"
-            >
-                1
-            </button>
-
-
-            <button
-                class="botao"
-                onclick="numero('2')"
-            >
-                2
-            </button>
-
-
-            <button
-                class="botao"
-                onclick="numero('3')"
-            >
-                3
-            </button>
-
-
-            <button
-                class="botao operador"
-                onclick="operador('+')"
-            >
-                +
-            </button>
-
-
-
-            <button
-                class="botao zero"
-                onclick="numero('0')"
-            >
-                0
-            </button>
-
-
-            <button
-                class="botao"
-                onclick="numero('.')"
-            >
-                .
-            </button>
-
-
-            <button
-                class="botao operador"
-                onclick="calcular()"
-            >
-                =
-            </button>
-
-
-        </div>
+        <button class="zero" onclick="numero('0')">0</button>
+        <button onclick="numero('.')">.</button>
+        <button class="operador" onclick="calcular()">=</button>
 
     </div>
 
+</div>
 
 
-    <!-- =========================
-         PAINEL
-    ========================= -->
+<!-- =========================
+     PAINEL
+========================= -->
 
-    <div id="painel">
+<div id="painel">
 
-        <div class="painel-container">
+    <div class="painel-conteudo">
 
-            <div class="painel-titulo">
-                Meu Primeiro Painel
-            </div>
+        <h1>JHON</h1>
 
+        <p>Painel online</p>
 
-            <div class="painel-subtitulo">
-                Painel remoto
-            </div>
-
-
-            <div class="card">
-
-                <h2>
-                    Status
-                </h2>
-
-                <p id="status">
-                    Painel conectado.
-                </p>
-
-            </div>
-
-
-            <div class="card">
-
-                <h2>
-                    Controle
-                </h2>
-
-                <p>
-                    Essa tela pode ser alterada remotamente pelo GitHub.
-                </p>
-
-
-                <button
-                    class="painel-botao"
-                    onclick="pressionar()"
-                >
-                    Clique aqui
-                </button>
-
-
-                <button
-                    class="painel-botao voltar"
-                    onclick="voltar()"
-                >
-                    Voltar
-                </button>
-
-            </div>
-
-        </div>
+        <button onclick="voltar()">
+            Voltar
+        </button>
 
     </div>
 
+</div>
 
 
-    <script>
+<script>
 
-        let atual = "0";
+let valorAtual = "0";
+let valorAnterior = null;
+let operadorAtual = null;
 
-        let primeiro = null;
+let cliquesZero = 0;
 
-        let op = null;
 
-        let novoNumero = false;
+/* DISPLAY */
 
-        let zeroAnterior = false;
+function atualizarDisplay() {
+    document.getElementById("display").textContent = valorAtual;
+}
 
 
-        function display() {
+/* NÚMEROS */
 
-            document.getElementById(
-                "display"
-            ).textContent = atual;
+function numero(n) {
 
-        }
+    if (n === "." && valorAtual.includes(".")) {
+        return;
+    }
 
+    if (valorAtual === "0" && n !== ".") {
+        valorAtual = n;
+    } else {
+        valorAtual += n;
+    }
 
-        function numero(n) {
+    atualizarDisplay();
+}
 
-            /*
-             * DOIS ZEROS ABREM O PAINEL
-             */
 
-            if (n === "0") {
+/* LIMPAR */
 
-                if (zeroAnterior) {
+function limpar() {
 
-                    abrirPainel();
+    valorAtual = "0";
+    valorAnterior = null;
+    operadorAtual = null;
 
-                    zeroAnterior = false;
+    cliquesZero = 0;
 
-                    return;
+    atualizarDisplay();
+}
 
-                }
 
-                zeroAnterior = true;
+/* PORCENTAGEM */
 
-            } else {
+function porcentagem() {
 
-                zeroAnterior = false;
+    valorAtual = String(parseFloat(valorAtual) / 100);
 
-            }
+    atualizarDisplay();
+}
 
 
-            if (novoNumero) {
+/* SINAL */
 
-                atual =
-                    n === "."
-                    ? "0."
-                    : n;
+function sinal() {
 
-                novoNumero = false;
+    if (valorAtual !== "0") {
+        valorAtual = String(parseFloat(valorAtual) * -1);
+    }
 
-            }
+    atualizarDisplay();
+}
 
-            else if (atual === "0") {
 
-                atual =
-                    n === "."
-                    ? "0."
-                    : n;
+/* OPERADOR */
 
-            }
+function operador(op) {
 
-            else if (
-                n === "." &&
-                atual.includes(".")
-            ) {
+    valorAnterior = parseFloat(valorAtual);
 
-                return;
+    operadorAtual = op;
 
-            }
+    valorAtual = "0";
 
-            else {
+    atualizarDisplay();
+}
 
-                atual += n;
 
-            }
+/* CALCULAR */
 
+function calcular() {
 
-            display();
+    if (
+        valorAnterior === null ||
+        operadorAtual === null
+    ) {
+        return;
+    }
 
-        }
+    let atual = parseFloat(valorAtual);
+    let resultado;
 
+    switch (operadorAtual) {
 
-        function limpar() {
+        case "+":
+            resultado = valorAnterior + atual;
+            break;
 
-            atual = "0";
+        case "-":
+            resultado = valorAnterior - atual;
+            break;
 
-            primeiro = null;
+        case "*":
+            resultado = valorAnterior * atual;
+            break;
 
-            op = null;
+        case "/":
+            resultado = atual === 0
+                ? 0
+                : valorAnterior / atual;
+            break;
+    }
 
-            novoNumero = false;
+    valorAtual = String(resultado);
 
-            zeroAnterior = false;
+    valorAnterior = null;
+    operadorAtual = null;
 
-            display();
+    atualizarDisplay();
+}
 
-        }
 
+/* ABRIR PAINEL */
 
-        function porcentagem() {
+function abrirPainel() {
 
-            atual =
-                String(
-                    parseFloat(atual) / 100
-                );
+    document.getElementById("calculadora").style.display = "none";
+    document.getElementById("painel").style.display = "block";
+}
 
-            display();
 
-        }
+/* VOLTAR */
 
+function voltar() {
 
-        function sinal() {
+    document.getElementById("painel").style.display = "none";
+    document.getElementById("calculadora").style.display = "flex";
 
-            if (atual !== "0") {
+    limpar();
+}
 
-                atual =
-                    String(
-                        parseFloat(atual) * -1
-                    );
 
-                display();
+/* CLIQUE NO ZERO */
 
-            }
+function pressionarZero() {
 
-        }
+    cliquesZero++;
 
+    if (cliquesZero >= 2) {
+        abrirPainel();
+        cliquesZero = 0;
+    }
+}
 
-        function operador(o) {
-
-            primeiro =
-                parseFloat(atual);
-
-            op = o;
-
-            novoNumero = true;
-
-            zeroAnterior = false;
-
-        }
-
-
-        function calcular() {
-
-            if (
-                primeiro === null ||
-                op === null
-            ) {
-
-                return;
-
-            }
-
-
-            const segundo =
-                parseFloat(atual);
-
-            let resultado;
-
-
-            if (op === "+") {
-
-                resultado =
-                    primeiro + segundo;
-
-            }
-
-            else if (op === "-") {
-
-                resultado =
-                    primeiro - segundo;
-
-            }
-
-            else if (op === "*") {
-
-                resultado =
-                    primeiro * segundo;
-
-            }
-
-            else if (op === "/") {
-
-                if (segundo === 0) {
-
-                    atual = "Erro";
-
-                    display();
-
-                    primeiro = null;
-
-                    op = null;
-
-                    return;
-
-                }
-
-                resultado =
-                    primeiro / segundo;
-
-            }
-
-
-            atual =
-                String(
-                    Number(
-                        resultado.toFixed(8)
-                    )
-                );
-
-
-            primeiro = null;
-
-            op = null;
-
-            novoNumero = true;
-
-            display();
-
-        }
-
-
-        function abrirPainel() {
-
-            document.getElementById(
-                "calculadora"
-            ).style.display = "none";
-
-
-            document.getElementById(
-                "painel"
-            ).style.display = "block";
-
-        }
-
-
-        function voltar() {
-
-            document.getElementById(
-                "painel"
-            ).style.display = "none";
-
-
-            document.getElementById(
-                "calculadora"
-            ).style.display = "flex";
-
-
-            limpar();
-
-        }
-
-
-        function pressionar() {
-
-            document.getElementById(
-                "status"
-            ).textContent =
-                "Botão pressionado!";
-
-        }
-
-    </script>
+</script>
 
 </body>
-
 </html>
