@@ -2,14 +2,17 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no"
     >
 
-    <title>Calculadora</title>
+    <meta name="theme-color" content="#000000">
+
+    <title>Calculadora v999</title>
 
     <style>
 
@@ -26,41 +29,54 @@
             height: 100%;
             background: #000;
             overflow: hidden;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "SF Pro Display",
+                "Helvetica Neue",
+                Arial,
+                sans-serif;
+        }
+
+        button {
+            border: none;
+            outline: none;
+            font-family: inherit;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
 
-        /* ============================
+        /* =========================
            CALCULADORA
-        ============================ */
+        ========================= */
 
         #calculadora {
 
             position: fixed;
 
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            inset: 0;
 
             width: 100%;
             height: 100%;
 
             background: #000;
 
+            display: flex;
+            flex-direction: column;
+
             padding-top: 50px;
             padding-left: 12px;
             padding-right: 12px;
             padding-bottom: 12px;
 
-            display: flex;
-            flex-direction: column;
         }
 
 
-        /* ============================
+        /* =========================
            DISPLAY
-        ============================ */
+        ========================= */
 
         #display {
 
@@ -75,7 +91,7 @@
 
             padding: 0 12px 15px;
 
-            color: white;
+            color: #fff;
 
             font-size: 80px;
 
@@ -86,12 +102,13 @@
             overflow: hidden;
 
             white-space: nowrap;
+
         }
 
 
-        /* ============================
+        /* =========================
            BOTÕES
-        ============================ */
+        ========================= */
 
         .botoes {
 
@@ -108,21 +125,7 @@
                 repeat(5, 1fr);
 
             gap: 10px;
-        }
 
-
-        button {
-
-            border: none;
-
-            outline: none;
-
-            font-family: Arial, Helvetica, sans-serif;
-
-            cursor: pointer;
-
-            -webkit-user-select: none;
-            user-select: none;
         }
 
 
@@ -133,23 +136,24 @@
 
             border-radius: 50%;
 
-            background: #333333;
+            background: #333;
 
-            color: white;
+            color: #fff;
 
             font-size: 32px;
 
             display: flex;
 
             align-items: center;
-
             justify-content: center;
+
         }
 
 
         .botao:active {
 
             opacity: 0.5;
+
         }
 
 
@@ -158,6 +162,7 @@
             background: #a5a5a5;
 
             color: #000;
+
         }
 
 
@@ -166,6 +171,7 @@
             background: #ff9f0a;
 
             color: #fff;
+
         }
 
 
@@ -178,13 +184,13 @@
             justify-content: flex-start;
 
             padding-left: 28px;
+
         }
 
 
-
-        /* ============================
+        /* =========================
            PAINEL
-        ============================ */
+        ========================= */
 
         #painel {
 
@@ -192,10 +198,7 @@
 
             position: fixed;
 
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            inset: 0;
 
             width: 100%;
             height: 100%;
@@ -204,13 +207,10 @@
 
             color: white;
 
-            padding:
-                60px
-                20px
-                30px
-                20px;
+            padding: 60px 20px 30px;
 
             overflow-y: auto;
+
         }
 
 
@@ -220,7 +220,8 @@
 
             max-width: 600px;
 
-            margin: 0 auto;
+            margin: auto;
+
         }
 
 
@@ -231,6 +232,7 @@
             font-weight: 700;
 
             margin-bottom: 8px;
+
         }
 
 
@@ -239,6 +241,7 @@
             color: #999;
 
             margin-bottom: 25px;
+
         }
 
 
@@ -253,6 +256,7 @@
             padding: 20px;
 
             margin-bottom: 15px;
+
         }
 
 
@@ -261,6 +265,7 @@
             margin-bottom: 8px;
 
             font-size: 20px;
+
         }
 
 
@@ -269,6 +274,7 @@
             color: #aaa;
 
             line-height: 1.5;
+
         }
 
 
@@ -289,25 +295,34 @@
             font-size: 18px;
 
             font-weight: 600;
+
+        }
+
+
+        .painel-botao:active {
+
+            opacity: 0.7;
+
         }
 
 
         .voltar {
 
             background: #222;
+
         }
 
 
-
-        /* ============================
-           CELULARES PEQUENOS
-        ============================ */
+        /* =========================
+           TELAS PEQUENAS
+        ========================= */
 
         @media (max-height: 700px) {
 
             #calculadora {
 
                 padding-top: 35px;
+
             }
 
             #display {
@@ -315,6 +330,7 @@
                 height: 28%;
 
                 font-size: 65px;
+
             }
 
             .botoes {
@@ -322,18 +338,17 @@
                 height: 72%;
 
                 gap: 7px;
+
             }
 
             .botao {
 
                 font-size: 27px;
+
             }
+
         }
 
-
-        /* ============================
-           IPHONE MAIS ESTREITO
-        ============================ */
 
         @media (max-width: 380px) {
 
@@ -341,22 +356,27 @@
 
                 padding-left: 8px;
                 padding-right: 8px;
+
             }
 
             .botoes {
 
                 gap: 8px;
+
             }
 
             .botao {
 
                 font-size: 28px;
+
             }
 
             .zero {
 
                 padding-left: 24px;
+
             }
+
         }
 
     </style>
@@ -367,12 +387,11 @@
 <body>
 
 
-    <!-- ============================
+    <!-- =========================
          CALCULADORA
-    ============================ -->
+    ========================= -->
 
     <div id="calculadora">
-
 
         <div id="display">
             0
@@ -381,8 +400,6 @@
 
         <div class="botoes">
 
-
-            <!-- 1ª LINHA -->
 
             <button
                 class="botao especial"
@@ -417,8 +434,6 @@
 
 
 
-            <!-- 2ª LINHA -->
-
             <button
                 class="botao"
                 onclick="numero('7')"
@@ -451,8 +466,6 @@
             </button>
 
 
-
-            <!-- 3ª LINHA -->
 
             <button
                 class="botao"
@@ -487,8 +500,6 @@
 
 
 
-            <!-- 4ª LINHA -->
-
             <button
                 class="botao"
                 onclick="numero('1')"
@@ -522,8 +533,6 @@
 
 
 
-            <!-- 5ª LINHA -->
-
             <button
                 class="botao zero"
                 onclick="numero('0')"
@@ -554,15 +563,13 @@
 
 
 
-    <!-- ============================
+    <!-- =========================
          PAINEL
-    ============================ -->
+    ========================= -->
 
     <div id="painel">
 
-
         <div class="painel-container">
-
 
             <div class="painel-titulo">
                 Meu Primeiro Painel
@@ -615,7 +622,6 @@
 
             </div>
 
-
         </div>
 
     </div>
@@ -623,7 +629,6 @@
 
 
     <script>
-
 
         let atual = "0";
 
@@ -636,7 +641,6 @@
         let zeroAnterior = false;
 
 
-
         function display() {
 
             document.getElementById(
@@ -646,9 +650,7 @@
         }
 
 
-
         function numero(n) {
-
 
             /*
              * DOIS ZEROS ABREM O PAINEL
@@ -663,6 +665,7 @@
                     zeroAnterior = false;
 
                     return;
+
                 }
 
                 zeroAnterior = true;
@@ -672,7 +675,6 @@
                 zeroAnterior = false;
 
             }
-
 
 
             if (novoNumero) {
@@ -716,7 +718,6 @@
         }
 
 
-
         function limpar() {
 
             atual = "0";
@@ -734,7 +735,6 @@
         }
 
 
-
         function porcentagem() {
 
             atual =
@@ -745,7 +745,6 @@
             display();
 
         }
-
 
 
         function sinal() {
@@ -764,7 +763,6 @@
         }
 
 
-
         function operador(o) {
 
             primeiro =
@@ -779,7 +777,6 @@
         }
 
 
-
         function calcular() {
 
             if (
@@ -792,7 +789,7 @@
             }
 
 
-            let segundo =
+            const segundo =
                 parseFloat(atual);
 
             let resultado;
@@ -805,7 +802,6 @@
 
             }
 
-
             else if (op === "-") {
 
                 resultado =
@@ -813,14 +809,12 @@
 
             }
 
-
             else if (op === "*") {
 
                 resultado =
                     primeiro * segundo;
 
             }
-
 
             else if (op === "/") {
 
@@ -863,7 +857,6 @@
         }
 
 
-
         function abrirPainel() {
 
             document.getElementById(
@@ -876,7 +869,6 @@
             ).style.display = "block";
 
         }
-
 
 
         function voltar() {
@@ -896,7 +888,6 @@
         }
 
 
-
         function pressionar() {
 
             document.getElementById(
@@ -905,7 +896,6 @@
                 "Botão pressionado!";
 
         }
-
 
     </script>
 
