@@ -2,8 +2,13 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
+
+    <meta name="theme-color" content="#000000">
 
     <title>Calculadora</title>
 
@@ -13,13 +18,35 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        html,
         body {
             margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
             background: #000;
-            color: white;
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", Arial, sans-serif;
+            color: #fff;
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "SF Pro Display",
+                "Helvetica Neue",
+                Arial,
+                sans-serif;
+        }
+
+        body {
             min-height: 100vh;
             overflow: hidden;
+        }
+
+        button {
+            border: 0;
+            outline: 0;
+            font-family: inherit;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         /* =========================
@@ -27,82 +54,92 @@
         ========================= */
 
         #calculadora {
+            width: 100%;
             min-height: 100vh;
+
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
+
             padding: 20px;
+            background: #000;
         }
 
         #display {
             width: 100%;
             height: 150px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: flex-end;
 
-            font-size: 80px;
-            font-weight: 300;
-            color: white;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
 
             padding: 0 10px 15px;
-            overflow: hidden;
+
+            color: #fff;
+            font-size: 80px;
+            font-weight: 300;
+
             white-space: nowrap;
+            overflow: hidden;
+
+            text-align: right;
         }
 
         .botoes {
+            width: 100%;
+
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            padding-bottom: 20px;
-        }
 
-        button {
-            border: none;
-            outline: none;
-            font-family: inherit;
-            cursor: pointer;
-            user-select: none;
+            gap: 12px;
+
+            padding-bottom: 20px;
         }
 
         .botao {
             width: 100%;
             aspect-ratio: 1 / 1;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
             border-radius: 50%;
 
-            background: #333333;
-            color: white;
+            background: #333;
+            color: #fff;
 
             font-size: 30px;
             font-weight: 400;
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            transition: opacity 0.1s;
         }
 
         .botao:active {
-            opacity: 0.6;
+            opacity: 0.55;
         }
 
         .especial {
             background: #a5a5a5;
-            color: black;
+            color: #000;
         }
 
         .operador {
             background: #ff9f0a;
-            color: white;
+            color: #fff;
         }
 
         .zero {
             grid-column: span 2;
+
             aspect-ratio: auto;
+
             border-radius: 50px;
+
             justify-content: flex-start;
+
             padding-left: 30px;
         }
-
 
         /* =========================
            PAINEL
@@ -110,56 +147,85 @@
 
         #painel {
             display: none;
+
+            width: 100%;
             min-height: 100vh;
+
             background: #080808;
+
             padding: 25px;
+
+            overflow-y: auto;
         }
 
         .painel-container {
             width: 100%;
             max-width: 600px;
-            margin: auto;
+
+            margin: 0 auto;
         }
 
         .painel-titulo {
+            margin-top: 30px;
+            margin-bottom: 8px;
+
+            color: #fff;
+
             font-size: 32px;
             font-weight: 700;
-            margin-top: 30px;
-            margin-bottom: 10px;
         }
 
         .painel-subtitulo {
-            color: #999;
             margin-bottom: 30px;
+
+            color: #999;
+
+            font-size: 16px;
         }
 
         .card {
+            width: 100%;
+
+            margin-bottom: 15px;
+            padding: 20px;
+
             background: #151515;
+
             border: 1px solid #292929;
             border-radius: 18px;
-            padding: 20px;
-            margin-bottom: 15px;
         }
 
         .card h2 {
             margin: 0 0 8px;
+
+            color: #fff;
+
             font-size: 20px;
+            font-weight: 600;
         }
 
         .card p {
             margin: 0;
+
             color: #aaa;
+
+            font-size: 15px;
+            line-height: 1.5;
         }
 
         .painel-botao {
             width: 100%;
             height: 55px;
+
+            margin-top: 15px;
+
             border-radius: 14px;
+
             background: #007aff;
-            color: white;
+            color: #fff;
+
             font-size: 18px;
             font-weight: 600;
-            margin-top: 15px;
         }
 
         .painel-botao:active {
@@ -167,14 +233,21 @@
         }
 
         .voltar {
-            background: #222;
             margin-top: 10px;
+
+            background: #222;
         }
+
+        /* =========================
+           COMPUTADOR
+        ========================= */
 
         @media (min-width: 600px) {
             #calculadora {
-                max-width: 500px;
-                margin: auto;
+                width: 500px;
+                max-width: 100%;
+
+                margin: 0 auto;
             }
         }
     </style>
@@ -183,7 +256,7 @@
 <body>
 
     <!-- =========================
-         TELA DA CALCULADORA
+         CALCULADORA
     ========================= -->
 
     <div id="calculadora">
@@ -192,36 +265,168 @@
 
         <div class="botoes">
 
-            <button class="botao especial" onclick="limpar()">AC</button>
-            <button class="botao especial" onclick="porcentagem()">%</button>
-            <button class="botao especial" onclick="operacao('±')">±</button>
-            <button class="botao operador" onclick="operacao('/')">÷</button>
+            <button
+                type="button"
+                class="botao especial"
+                onclick="limpar()"
+            >
+                AC
+            </button>
 
-            <button class="botao" onclick="numero('7')">7</button>
-            <button class="botao" onclick="numero('8')">8</button>
-            <button class="botao" onclick="numero('9')">9</button>
-            <button class="botao operador" onclick="operacao('*')">×</button>
+            <button
+                type="button"
+                class="botao especial"
+                onclick="porcentagem()"
+            >
+                %
+            </button>
 
-            <button class="botao" onclick="numero('4')">4</button>
-            <button class="botao" onclick="numero('5')">5</button>
-            <button class="botao" onclick="numero('6')">6</button>
-            <button class="botao operador" onclick="operacao('-')">−</button>
+            <button
+                type="button"
+                class="botao especial"
+                onclick="mudarSinal()"
+            >
+                ±
+            </button>
 
-            <button class="botao" onclick="numero('1')">1</button>
-            <button class="botao" onclick="numero('2')">2</button>
-            <button class="botao" onclick="numero('3')">3</button>
-            <button class="botao operador" onclick="operacao('+')">+</button>
+            <button
+                type="button"
+                class="botao operador"
+                onclick="selecionarOperador('/')"
+            >
+                ÷
+            </button>
 
-            <button class="botao zero" onclick="numero('0')">0</button>
-            <button class="botao" onclick="numero('.')">.</button>
-            <button class="botao operador" onclick="calcular()">=</button>
+
+            <button
+                type="button"
+                class="botao"
+                onclick="digitarNumero('7')"
+            >
+                7
+            </button>
+
+            <button
+                type="button"
+                class="botao"
+                onclick="digitarNumero('8')"
+            >
+                8
+            </button>
+
+            <button
+                type="button"
+                class="botao"
+                onclick="digitarNumero('9')"
+            >
+                9
+            </button>
+
+            <button
+                type="button"
+                class="botao operador"
+                onclick="selecionarOperador('*')"
+            >
+                ×
+            </button>
+
+
+            <button
+                type="button"
+                class="botao"
+                onclick="digitarNumero('4')"
+            >
+                4
+            </button>
+
+            <button
+                type="button"
+                class="botao"
+                onclick="digitarNumero('5')"
+            >
+                5
+            </button>
+
+            <button
+                type="button"
+                class="botao"
+                onclick="digitarNumero('6')"
+            >
+                6
+            </button>
+
+            <button
+                type="button"
+                class="botao operador"
+                onclick="selecionarOperador('-')"
+            >
+                −
+            </button>
+
+
+            <button
+                type="button"
+                class="botao"
+                onclick="digitarNumero('1')"
+            >
+                1
+            </button>
+
+            <button
+                type="button"
+                class="botao"
+                onclick="digitarNumero('2')"
+            >
+                2
+            </button>
+
+            <button
+                type="button"
+                class="botao"
+                onclick="digitarNumero('3')"
+            >
+                3
+            </button>
+
+            <button
+                type="button"
+                class="botao operador"
+                onclick="selecionarOperador('+')"
+            >
+                +
+            </button>
+
+
+            <button
+                type="button"
+                class="botao zero"
+                onclick="digitarNumero('0')"
+            >
+                0
+            </button>
+
+            <button
+                type="button"
+                class="botao"
+                onclick="digitarNumero('.')"
+            >
+                .
+            </button>
+
+            <button
+                type="button"
+                class="botao operador"
+                onclick="calcular()"
+            >
+                =
+            </button>
 
         </div>
     </div>
 
 
     <!-- =========================
-         TELA DO PAINEL
+         PAINEL
     ========================= -->
 
     <div id="painel">
@@ -236,22 +441,48 @@
                 Painel remoto
             </div>
 
+
             <div class="card">
-                <h2>Status</h2>
-                <p id="status">Painel conectado.</p>
+
+                <h2>
+                    Status
+                </h2>
+
+                <p id="status">
+                    Painel conectado.
+                </p>
+
             </div>
 
-            <div class="card">
-                <h2>Controle</h2>
-                <p>Essa tela pode ser alterada remotamente pelo GitHub.</p>
 
-                <button class="painel-botao" onclick="pressionar()">
+            <div class="card">
+
+                <h2>
+                    Controle
+                </h2>
+
+                <p>
+                    Essa tela pode ser alterada remotamente pelo GitHub.
+                </p>
+
+
+                <button
+                    type="button"
+                    class="painel-botao"
+                    onclick="pressionar()"
+                >
                     Clique aqui
                 </button>
 
-                <button class="painel-botao voltar" onclick="voltar()">
+
+                <button
+                    type="button"
+                    class="painel-botao voltar"
+                    onclick="voltar()"
+                >
                     Voltar
                 </button>
+
             </div>
 
         </div>
@@ -259,95 +490,220 @@
     </div>
 
 
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
     <script>
 
         let valorAtual = "0";
+
         let primeiroValor = null;
+
         let operadorAtual = null;
+
         let esperandoSegundoValor = false;
 
-        // Controle para detectar 00
         let primeiroZero = false;
 
 
         function atualizarDisplay() {
-            document.getElementById("display").textContent = valorAtual;
+
+            const display =
+                document.getElementById("display");
+
+            display.textContent = valorAtual;
+
         }
 
 
-        function numero(numero) {
+        function digitarNumero(numero) {
 
-            // Detecta 00
+            /*
+             * Dois toques seguidos no ZERO
+             * abrem o painel.
+             */
+
             if (numero === "0") {
 
                 if (primeiroZero) {
+
                     abrirPainel();
+
                     primeiroZero = false;
+
                     return;
                 }
 
                 primeiroZero = true;
 
             } else {
+
                 primeiroZero = false;
+
             }
 
+
+            /*
+             * Se acabou de escolher uma operação,
+             * começa um novo número.
+             */
 
             if (esperandoSegundoValor) {
+
                 valorAtual = numero;
+
                 esperandoSegundoValor = false;
+
             }
+
+            /*
+             * Evita números como 000123.
+             */
 
             else if (valorAtual === "0") {
-                valorAtual = numero;
+
+                if (numero === ".") {
+
+                    valorAtual = "0.";
+
+                } else {
+
+                    valorAtual = numero;
+
+                }
+
             }
+
+            /*
+             * Ponto decimal.
+             */
+
+            else if (
+                numero === "." &&
+                valorAtual.includes(".")
+            ) {
+
+                return;
+
+            }
+
+            /*
+             * Adiciona o número.
+             */
 
             else {
+
                 valorAtual += numero;
+
             }
 
+
             atualizarDisplay();
+
         }
 
 
         function limpar() {
 
             valorAtual = "0";
+
             primeiroValor = null;
+
             operadorAtual = null;
+
             esperandoSegundoValor = false;
+
             primeiroZero = false;
 
             atualizarDisplay();
+
         }
 
 
         function porcentagem() {
 
-            valorAtual = String(parseFloat(valorAtual) / 100);
+            const numero =
+                parseFloat(valorAtual);
+
+            if (isNaN(numero)) {
+
+                valorAtual = "0";
+
+            } else {
+
+                valorAtual =
+                    String(numero / 100);
+
+            }
 
             atualizarDisplay();
+
         }
 
 
-        function operacao(op) {
+        function mudarSinal() {
 
-            if (op === "±") {
+            const numero =
+                parseFloat(valorAtual);
 
-                if (valorAtual !== "0") {
-                    valorAtual = String(parseFloat(valorAtual) * -1);
-                }
+            if (
+                isNaN(numero) ||
+                numero === 0
+            ) {
 
-                atualizarDisplay();
                 return;
+
+            }
+
+            valorAtual =
+                String(numero * -1);
+
+            atualizarDisplay();
+
+        }
+
+
+        function selecionarOperador(operador) {
+
+            const numero =
+                parseFloat(valorAtual);
+
+            if (isNaN(numero)) {
+
+                return;
+
             }
 
 
-            primeiroValor = parseFloat(valorAtual);
-            operadorAtual = op;
-            esperandoSegundoValor = true;
+            /*
+             * Se já existe uma operação pendente,
+             * calcula antes de continuar.
+             */
 
-            primeiroZero = false;
+            if (
+                primeiroValor !== null &&
+                operadorAtual !== null &&
+                !esperandoSegundoValor
+            ) {
+
+                calcular();
+
+            }
+
+
+            primeiroValor =
+                parseFloat(valorAtual);
+
+            operadorAtual =
+                operador;
+
+            esperandoSegundoValor =
+                true;
+
+            primeiroZero =
+                false;
+
         }
 
 
@@ -357,88 +713,231 @@
                 primeiroValor === null ||
                 operadorAtual === null
             ) {
+
                 return;
+
             }
 
-            const segundoValor = parseFloat(valorAtual);
 
-            let resultado;
+            const segundoValor =
+                parseFloat(valorAtual);
+
+
+            if (isNaN(segundoValor)) {
+
+                return;
+
+            }
+
+
+            let resultado = 0;
 
 
             switch (operadorAtual) {
 
                 case "+":
-                    resultado = primeiroValor + segundoValor;
+
+                    resultado =
+                        primeiroValor +
+                        segundoValor;
+
                     break;
+
 
                 case "-":
-                    resultado = primeiroValor - segundoValor;
+
+                    resultado =
+                        primeiroValor -
+                        segundoValor;
+
                     break;
+
 
                 case "*":
-                    resultado = primeiroValor * segundoValor;
+
+                    resultado =
+                        primeiroValor *
+                        segundoValor;
+
                     break;
+
 
                 case "/":
-                    resultado = segundoValor === 0
-                        ? 0
-                        : primeiroValor / segundoValor;
+
+                    if (segundoValor === 0) {
+
+                        valorAtual = "Erro";
+
+                        primeiroValor = null;
+
+                        operadorAtual = null;
+
+                        esperandoSegundoValor = false;
+
+                        atualizarDisplay();
+
+                        return;
+
+                    }
+
+                    resultado =
+                        primeiroValor /
+                        segundoValor;
+
                     break;
 
+
                 default:
+
                     return;
+
             }
 
 
-            valorAtual = String(resultado);
+            /*
+             * Evita números gigantes com muitos
+             * números depois da vírgula.
+             */
+
+            if (
+                !Number.isFinite(resultado)
+            ) {
+
+                valorAtual = "Erro";
+
+            } else {
+
+                valorAtual =
+                    String(
+                        Number(
+                            resultado.toFixed(10)
+                        )
+                    );
+
+            }
+
 
             primeiroValor = null;
+
             operadorAtual = null;
+
             esperandoSegundoValor = true;
 
+            primeiroZero = false;
+
             atualizarDisplay();
+
         }
 
 
-        // =========================
-        // ABRIR PAINEL
-        // =========================
+        /*
+         * Abre o painel.
+         */
 
         function abrirPainel() {
 
-            document.getElementById("calculadora").style.display = "none";
+            const calculadora =
+                document.getElementById(
+                    "calculadora"
+                );
 
-            document.getElementById("painel").style.display = "block";
+            const painel =
+                document.getElementById(
+                    "painel"
+                );
 
-            document.body.style.overflow = "auto";
+
+            calculadora.style.display =
+                "none";
+
+            painel.style.display =
+                "block";
+
+            document.body.style.overflow =
+                "auto";
+
         }
 
 
-        // =========================
-        // VOLTAR
-        // =========================
+        /*
+         * Volta para a calculadora.
+         */
 
         function voltar() {
 
-            document.getElementById("painel").style.display = "none";
+            const calculadora =
+                document.getElementById(
+                    "calculadora"
+                );
 
-            document.getElementById("calculadora").style.display = "flex";
+            const painel =
+                document.getElementById(
+                    "painel"
+                );
 
-            document.body.style.overflow = "hidden";
+
+            painel.style.display =
+                "none";
+
+            calculadora.style.display =
+                "flex";
+
+            document.body.style.overflow =
+                "hidden";
+
 
             limpar();
+
         }
 
 
-        // =========================
-        // BOTÃO DO PAINEL
-        // =========================
+        /*
+         * Botão do painel.
+         */
 
         function pressionar() {
 
-            document.getElementById("status").textContent =
+            const status =
+                document.getElementById(
+                    "status"
+                );
+
+
+            status.textContent =
                 "Botão pressionado!";
+
         }
+
+
+        /*
+         * Impede zoom por duplo toque
+         * em alguns navegadores móveis.
+         */
+
+        let ultimoToque = 0;
+
+        document.addEventListener(
+            "touchend",
+            function (evento) {
+
+                const agora =
+                    Date.now();
+
+                if (
+                    agora - ultimoToque <= 300
+                ) {
+
+                    evento.preventDefault();
+
+                }
+
+                ultimoToque = agora;
+
+            },
+            {
+                passive: false
+            }
+        );
 
     </script>
 
