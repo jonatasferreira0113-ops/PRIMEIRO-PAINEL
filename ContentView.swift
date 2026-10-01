@@ -4,20 +4,34 @@ import WebKit
 struct ContentView: View {
     var body: some View {
         RemotePanel()
-            .ignoresSafeArea()
+            .ignoresSafeArea(.all)
     }
 }
 
 struct RemotePanel: UIViewRepresentable {
 
-    let url = URL(
-        string: "https://jonatasferreira0113-ops.github.io/PRIMEIRO-PAINEL/"
-    )!
-
     func makeUIView(context: Context) -> WKWebView {
-        let webView = WKWebView()
+
+        let configuration = WKWebViewConfiguration()
+
+        let webView = WKWebView(
+            frame: .zero,
+            configuration: configuration
+        )
+
+        webView.scrollView.contentInsetAdjustmentBehavior = .never
         webView.scrollView.bounces = false
-        webView.load(URLRequest(url: url))
+
+        let url = URL(
+            string: "https://jonatasferreira0113-ops.github.io/PRIMEIRO-PAINEL/"
+        )!
+
+        var request = URLRequest(url: url)
+
+        request.cachePolicy = .reloadIgnoringLocalCacheData
+
+        webView.load(request)
+
         return webView
     }
 
